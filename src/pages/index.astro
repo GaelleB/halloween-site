@@ -1,11 +1,409 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title="Debug or Treat 🎃">
+  <div class="container mx-auto px-4 py-8 max-w-4xl">
+    <!-- Header -->
+    <header class="text-center mb-12 animate-fade-in">
+      <div class="text-8xl mb-4 animate-bounce-slow inline-block">🎃</div>
+      <h1 class="text-5xl md:text-7xl font-bold mb-4 animate-glow">
+        Debug or Treat
+      </h1>
+      <p class="text-xl opacity-90">
+        Complète les 5 bugs de code pour collecter des bonbons ! 🍬
+      </p>
+      <p class="text-sm mt-2 opacity-75">
+        Tu as 5 tentatives par bug. Après ça, la solution s'affiche 👻
+      </p>
+    </header>
+
+    <!-- Score -->
+    <div class="score-card text-center mb-8">
+      <span class="text-2xl">Bonbons collectés :</span>
+      <span id="candy-count" class="text-3xl ml-3 font-bold">0 / 5 🍬</span>
+    </div>
+
+    <!-- Bug 1: React map sans key -->
+    <div class="bug-card mb-8" data-bug-id="1">
+      <div class="bug-header">
+        <h3 class="text-2xl font-bold">👻 Bug #1 : La boucle infernale</h3>
+        <span class="bug-status hidden">✅</span>
+      </div>
+      <div class="code-container">
+        <pre class="code-content"><code><span class="line">function HauntedList() &#123;</span>
+<span class="line">  const items = ['👻', '🎃', '🦇'];</span>
+<span class="line">  return (</span>
+<span class="line">    &lt;ul&gt;</span>
+<span class="line">      &#123;items.map(item =&gt; &lt;li <span class="missing-code">______</span>&gt;&#123;item&#125;&lt;/li&gt;)&#125;</span>
+<span class="line">    &lt;/ul&gt;</span>
+<span class="line">  );</span>
+<span class="line">&#125;</span></code></pre>
+      </div>
+      <div class="answer-section">
+        <p class="hint">💡 React a besoin d'identifier chaque élément de liste...</p>
+        <div class="input-group">
+          <input 
+            type="text" 
+            class="code-input" 
+            placeholder="Ta réponse ici..."
+            data-bug-id="1"
+          />
+          <button class="validate-btn" data-bug-id="1">Valider</button>
+        </div>
+        <p class="attempts">Tentatives : <span class="attempts-count">0</span> / 5</p>
+        <p class="error-message hidden"></p>
+        <div class="solution hidden">
+          <p class="solution-title">💡 Solution :</p>
+          <code>key=&#123;item&#125;</code>
+          <p class="solution-explanation">Chaque élément d'une liste React doit avoir une prop "key" unique.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bug 2: useEffect sans dépendances -->
+    <div class="bug-card mb-8" data-bug-id="2">
+      <div class="bug-header">
+        <h3 class="text-2xl font-bold">🦇 Bug #2 : L'effet zombie</h3>
+        <span class="bug-status hidden">✅</span>
+      </div>
+      <div class="code-container">
+        <pre class="code-content"><code><span class="line">function SpookyCounter() &#123;</span>
+<span class="line">  const [count, setCount] = useState(0);</span>
+<span class="line">  </span>
+<span class="line">  useEffect(() =&gt; &#123;</span>
+<span class="line">    console.log('Boo!', count);</span>
+<span class="line">  &#125;<span class="missing-code">______</span>);</span>
+<span class="line">  </span>
+<span class="line">  return &lt;button onClick=&#123;() =&gt; setCount(count + 1)&#125;&gt;&#123;count&#125;&lt;/button&gt;;</span>
+<span class="line">&#125;</span></code></pre>
+      </div>
+      <div class="answer-section">
+        <p class="hint">💡 Cet effet va se déclencher à chaque render sans dépendances...</p>
+        <div class="input-group">
+          <input 
+            type="text" 
+            class="code-input" 
+            placeholder="Ta réponse ici..."
+            data-bug-id="2"
+          />
+          <button class="validate-btn" data-bug-id="2">Valider</button>
+        </div>
+        <p class="attempts">Tentatives : <span class="attempts-count">0</span> / 5</p>
+        <p class="error-message hidden"></p>
+        <div class="solution hidden">
+          <p class="solution-title">💡 Solution :</p>
+          <code>, [count]</code>
+          <p class="solution-explanation">Le tableau de dépendances indique quand l'effet doit se ré-exécuter.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bug 3: CSS centrage -->
+    <div class="bug-card mb-8" data-bug-id="3">
+      <div class="bug-header">
+        <h3 class="text-2xl font-bold">💀 Bug #3 : Le centrage maudit</h3>
+        <span class="bug-status hidden">✅</span>
+      </div>
+      <div class="code-container">
+        <pre class="code-content"><code><span class="line">.spooky-container &#123;</span>
+<span class="line">  <span class="missing-code">______</span></span>
+<span class="line">  justify-content: center;</span>
+<span class="line">  align-items: center;</span>
+<span class="line">  height: 100vh;</span>
+<span class="line">&#125;</span></code></pre>
+      </div>
+      <div class="answer-section">
+        <p class="hint">💡 Pour que justify-content fonctionne, il faut d'abord...</p>
+        <div class="input-group">
+          <input 
+            type="text" 
+            class="code-input" 
+            placeholder="Ta réponse ici..."
+            data-bug-id="3"
+          />
+          <button class="validate-btn" data-bug-id="3">Valider</button>
+        </div>
+        <p class="attempts">Tentatives : <span class="attempts-count">0</span> / 5</p>
+        <p class="error-message hidden"></p>
+        <div class="solution hidden">
+          <p class="solution-title">💡 Solution :</p>
+          <code>display: flex;</code>
+          <p class="solution-explanation">Sans display: flex, justify-content et align-items ne fonctionnent pas.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bug 4: querySelector manquant -->
+    <div class="bug-card mb-8" data-bug-id="4">
+      <div class="bug-header">
+        <h3 class="text-2xl font-bold">🎃 Bug #4 : Le sélecteur fantôme</h3>
+        <span class="bug-status hidden">✅</span>
+      </div>
+      <div class="code-container">
+        <pre class="code-content"><code><span class="line">const button = <span class="missing-code">______</span>('.spooky-btn');</span>
+<span class="line">button.addEventListener('click', () =&gt; &#123;</span>
+<span class="line">  alert('Boo! 👻');</span>
+<span class="line">&#125;);</span></code></pre>
+      </div>
+      <div class="answer-section">
+        <p class="hint">💡 Comment sélectionner un élément du DOM en JavaScript vanilla ?</p>
+        <div class="input-group">
+          <input 
+            type="text" 
+            class="code-input" 
+            placeholder="Ta réponse ici..."
+            data-bug-id="4"
+          />
+          <button class="validate-btn" data-bug-id="4">Valider</button>
+        </div>
+        <p class="attempts">Tentatives : <span class="attempts-count">0</span> / 5</p>
+        <p class="error-message hidden"></p>
+        <div class="solution hidden">
+          <p class="solution-title">💡 Solution :</p>
+          <code>document.querySelector</code>
+          <p class="solution-explanation">querySelector permet de sélectionner un élément DOM via un sélecteur CSS.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bug 5: alt manquant -->
+    <div class="bug-card mb-8" data-bug-id="5">
+      <div class="bug-header">
+        <h3 class="text-2xl font-bold">🕷️ Bug #5 : L'image invisible</h3>
+        <span class="bug-status hidden">✅</span>
+      </div>
+      <div class="code-container">
+        <pre class="code-content"><code><span class="line">&lt;img </span>
+<span class="line">  src="pumpkin.jpg" </span>
+<span class="line">  <span class="missing-code">______</span></span>
+<span class="line">/&gt;</span></code></pre>
+      </div>
+      <div class="answer-section">
+        <p class="hint">💡 Quel attribut manque-t-il pour l'accessibilité ?</p>
+        <div class="input-group">
+          <input 
+            type="text" 
+            class="code-input" 
+            placeholder="Ta réponse ici..."
+            data-bug-id="5"
+          />
+          <button class="validate-btn" data-bug-id="5">Valider</button>
+        </div>
+        <p class="attempts">Tentatives : <span class="attempts-count">0</span> / 5</p>
+        <p class="error-message hidden"></p>
+        <div class="solution hidden">
+          <p class="solution-title">💡 Solution :</p>
+          <code>alt="Citrouille d'Halloween"</code>
+          <p class="solution-explanation">L'attribut alt décrit l'image pour les lecteurs d'écran et l'accessibilité.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Final Message (hidden initially) -->
+    <div id="final-message" class="hidden final-card text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">
+        🎉 Bravo ! Tu as complété tous les bugs ! 🎉
+      </h2>
+      <p class="text-xl mb-4">T'as trouvé <span id="final-score">5</span> bonbons sur 5 ! 👀</p>
+      <p class="text-xl mb-4">
+        Imagine ce que je peux faire pour ton code en production ! 🚀
+      </p>
+      <p class="text-lg mt-6 mb-8 opacity-90">
+        Développeuse React/Next.js freelance 💻<br />
+        Je transforme tes idées en applications web clean et performantes.
+      </p>
+      <a
+        href="https://www.linkedin.com/in/gaelle-boucher/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="cta-button"
+      >
+        On discute de ton projet ? 🎃
+      </a>
+    </div>
+  </div>
+
+  <!-- Floating Ghosts -->
+  <div id="ghosts-container"></div>
+
+  <script>
+    // Game state
+    let candiesFound = 0;
+    const totalBugs = 5;
+    const solvedBugs = new Set();
+    const attempts = {};
+
+    // Bug solutions (accept multiple variations)
+    const solutions = {
+      1: ['key={item}', 'key="item"', 'key={index}', 'key={i}'],
+      2: ['[count]', ',[count]'],
+      3: ['display:flex', 'display: flex'],
+      4: ['document.querySelector'],
+      5: ['alt=']
+    };
+
+    // Initialize attempts counter for each bug
+    for (let i = 1; i <= totalBugs; i++) {
+      attempts[i] = 0;
+    }
+
+    // Elements
+    const candyCount = document.getElementById("candy-count");
+    const finalMessage = document.getElementById("final-message");
+    const finalScore = document.getElementById("final-score");
+    const ghostsContainer = document.getElementById("ghosts-container");
+
+    // Normalize answer for comparison
+    function normalizeAnswer(answer) {
+      return answer.toLowerCase().trim().replace(/\s+/g, '').replace(/;/g, '');
+    }
+
+    // Check if answer is correct
+    function isCorrect(bugId, answer) {
+      const normalizedAnswer = normalizeAnswer(answer);
+      
+      return solutions[bugId].some(solution => {
+        const normalizedSolution = normalizeAnswer(solution);
+        
+        // For exact matches
+        if (normalizedAnswer === normalizedSolution) {
+          return true;
+        }
+        
+        // For solutions that are prefixes (like "alt=")
+        if (normalizedSolution.endsWith('=') && normalizedAnswer.startsWith(normalizedSolution)) {
+          return true;
+        }
+        
+        // For close matches (must be at least 80% similar in length)
+        const minLength = Math.min(normalizedAnswer.length, normalizedSolution.length);
+        const maxLength = Math.max(normalizedAnswer.length, normalizedSolution.length);
+        const similarity = minLength / maxLength;
+        
+        if (similarity >= 0.8 && normalizedAnswer.includes(normalizedSolution)) {
+          return true;
+        }
+        
+        return false;
+      });
+    }
+
+    // Handle validation
+    document.querySelectorAll('.validate-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const bugId = parseInt(this.dataset.bugId);
+        const bugCard = document.querySelector(`.bug-card[data-bug-id="${bugId}"]`);
+        const input = bugCard.querySelector('.code-input');
+        const attemptsCount = bugCard.querySelector('.attempts-count');
+        const errorMsg = bugCard.querySelector('.error-message');
+        const solution = bugCard.querySelector('.solution');
+        const hint = bugCard.querySelector('.hint');
+
+        // Check if already solved
+        if (solvedBugs.has(bugId)) return;
+
+        const answer = input.value.trim();
+        
+        if (!answer) {
+          errorMsg.textContent = '🚨 Entre une réponse d\'abord !';
+          errorMsg.classList.remove('hidden');
+          return;
+        }
+
+        attempts[bugId]++;
+        attemptsCount.textContent = attempts[bugId];
+
+        if (isCorrect(bugId, answer)) {
+          // Correct answer!
+          solvedBugs.add(bugId);
+          candiesFound++;
+
+          bugCard.classList.add('solved');
+          bugCard.querySelector('.bug-status').classList.remove('hidden');
+          errorMsg.classList.add('hidden');
+          hint.style.display = 'none';
+          input.disabled = true;
+          this.disabled = true;
+
+          candyCount.textContent = `${candiesFound} / ${totalBugs} 🍬`;
+
+          // Show success message
+          errorMsg.textContent = '✅ Bien joué ! +1 bonbon 🍬';
+          errorMsg.style.color = '#00ff00';
+          errorMsg.classList.remove('hidden');
+
+          // Show solution even when correct
+          solution.classList.remove('hidden');
+
+          // Check if all bugs solved
+          if (candiesFound === totalBugs) {
+            setTimeout(() => {
+              finalScore.textContent = candiesFound;
+              finalMessage.classList.remove('hidden');
+              finalMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }, 1000);
+          }
+        } else {
+          // Wrong answer
+          if (attempts[bugId] >= 5) {
+            // Show solution after 5 attempts
+            solution.classList.remove('hidden');
+            hint.style.display = 'none';
+            input.disabled = true;
+            this.disabled = true;
+            errorMsg.textContent = '😅 Pas grave ! Voici la solution :';
+            errorMsg.style.color = '#ffd93d';
+            errorMsg.classList.remove('hidden');
+
+            // Mark as "solved" to move forward
+            solvedBugs.add(bugId);
+            
+            // Check if all bugs done
+            if (solvedBugs.size === totalBugs) {
+              setTimeout(() => {
+                finalScore.textContent = candiesFound;
+                finalMessage.classList.remove('hidden');
+                finalMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+              }, 2000);
+            }
+          } else {
+            errorMsg.textContent = `❌ Pas tout à fait... Essaye encore ! (${5 - attempts[bugId]} tentatives restantes)`;
+            errorMsg.style.color = '#ff6b6b';
+            errorMsg.classList.remove('hidden');
+            input.value = '';
+            input.focus();
+          }
+        }
+      });
+    });
+
+    // Allow Enter key to validate
+    document.querySelectorAll('.code-input').forEach(input => {
+      input.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+          const bugId = this.dataset.bugId;
+          document.querySelector(`.validate-btn[data-bug-id="${bugId}"]`).click();
+        }
+      });
+    });
+
+    // Spawn random ghosts
+    function spawnGhost() {
+      const ghost = document.createElement("div");
+      ghost.className = "floating-ghost";
+      ghost.textContent = "👻";
+      ghost.style.left = Math.random() * window.innerWidth + "px";
+      ghost.style.top = Math.random() * window.innerHeight + "px";
+
+      ghostsContainer.appendChild(ghost);
+
+      setTimeout(() => {
+        ghost.remove();
+      }, 3000);
+    }
+
+    // Spawn ghosts periodically
+    setInterval(spawnGhost, 2000);
+  </script>
+</BaseLayout>
